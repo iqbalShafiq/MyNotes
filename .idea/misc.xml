@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/ToDoListApp/app/src/main/res/drawable/bg_radius_8dp.xml" value="0.149" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/ToDoListApp/app/src/main/res/drawable/bg_radius_bottom_8dp.xml" value="0.149" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/ToDoListApp/app/src/main/res/drawable/bg_radius_bottom_left_8dp.xml" value="0.149" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/ToDoListApp/app/src/main/res/drawable/bg_radius_bottom_right_8dp.xml" value="0.149" />
         <entry key="..\:/Users/ACER/AndroidStudioProjects/ToDoListApp/app/src/main/res/layout/fragment_detail.xml" value="0.25" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/ToDoListApp/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/ACER/AndroidStudioProjects/ToDoListApp/app/src/main/res/layout/item_note.xml" value="0.25" />
       </map>
     </option>
   </component>
