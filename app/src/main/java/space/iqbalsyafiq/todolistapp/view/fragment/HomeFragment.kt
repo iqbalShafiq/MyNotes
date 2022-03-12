@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import space.iqbalsyafiq.todolistapp.databinding.FragmentHomeBinding
+import space.iqbalsyafiq.todolistapp.model.Note
 import space.iqbalsyafiq.todolistapp.view.adapter.NoteListAdapter
 import space.iqbalsyafiq.todolistapp.viewmodel.HomeViewModel
 
@@ -45,7 +46,7 @@ class HomeFragment : Fragment() {
         with(binding) {
             // navigate to detail fragment to create new note
             btnAdd.setOnClickListener {
-                val action = HomeFragmentDirections.navigateToDetailFragment()
+                val action = HomeFragmentDirections.navigateToDetailFragment(null)
                 Navigation.findNavController(binding.root).navigate(action)
             }
 
@@ -69,6 +70,11 @@ class HomeFragment : Fragment() {
 
     fun deleteNote(noteId: Int) {
         viewModel.deleteNote(noteId)
+    }
+
+    fun navigateToDetail(note: Note) {
+        val action = HomeFragmentDirections.navigateToDetailFragment(note)
+        Navigation.findNavController(binding.root).navigate(action)
     }
 
     private fun observeLiveData() {

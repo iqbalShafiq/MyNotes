@@ -64,6 +64,11 @@ class NoteListAdapter(
                     holder.itemView.llConfirmationDelete.visibility = View.VISIBLE
                 }
             }
+
+            // on card clicked
+            cvMain.setOnClickListener {
+                fragment.navigateToDetail(note)
+            }
         }
     }
 

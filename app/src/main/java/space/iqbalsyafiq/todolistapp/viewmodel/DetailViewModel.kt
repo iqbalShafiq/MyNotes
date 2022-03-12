@@ -19,11 +19,22 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     private var _note = MutableLiveData<Note>()
     val note: LiveData<Note> = _note
 
-    // methods
+    // store note to database
     fun storeNote(note: Note) {
         viewModelScope.launch {
             dao.insertNote(note).also {
                 Log.d(TAG, "storeNote: $it")
+            }
+        }
+    }
+
+    // update current note
+    fun updateNote(note: Note) {
+        Log.d(TAG, "updateNote: $note")
+        Log.d(TAG, "updateNote: ${note.id}")
+        viewModelScope.launch {
+            dao.updateNote(note.id, note.content!!, note.dateTime!!, note.title!!).also {
+                Log.d(TAG, "updateNote: $it")
             }
         }
     }
