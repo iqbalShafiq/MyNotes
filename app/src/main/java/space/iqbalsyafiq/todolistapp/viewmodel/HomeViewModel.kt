@@ -1,6 +1,7 @@
 package space.iqbalsyafiq.todolistapp.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,10 +22,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private var _noteList = MutableLiveData<List<Note>>()
     val noteList: LiveData<List<Note>> = _noteList
 
-    // methods
+    // get notes by query
     fun getNoteList(query: String = "") {
         viewModelScope.launch {
-            dao.getNotes(query).also {
+            dao.getNotes("%$query%").also {
+                Log.d(TAG, "getNoteList: $it")
                 if (it.isEmpty()) _empty.value = true
                 else {
                     _empty.value = false
@@ -32,5 +34,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
+    }
+
+    // delete note
+    fun deleteNote(noteId: Int) {
+        viewModelScope.launch {
+            dao.deleteNote(noteId)
+            getNoteList()
+        }
+    }
+
+    companion object {
+        private val TAG = HomeViewModel::class.java.simpleName
     }
 }

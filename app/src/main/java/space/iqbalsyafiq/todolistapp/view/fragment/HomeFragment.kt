@@ -1,9 +1,11 @@
 package space.iqbalsyafiq.todolistapp.view.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -36,11 +38,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // get notes
+        viewModel.getNoteList()
+
         // set view
         with(binding) {
+            // navigate to detail fragment to create new note
             btnAdd.setOnClickListener {
                 val action = HomeFragmentDirections.navigateToDetailFragment()
                 Navigation.findNavController(binding.root).navigate(action)
+            }
+
+            // search note
+            etSearch.addTextChangedListener {
+                viewModel.getNoteList(it.toString())
             }
         }
 
@@ -57,6 +68,7 @@ class HomeFragment : Fragment() {
 
         viewModel.noteList.observe(viewLifecycleOwner) { notes ->
             notes?.let {
+                Log.d(TAG, "observeLiveData: $notes")
                 adapter = NoteListAdapter(requireContext(), notes)
                 binding.rvNoteList.adapter = adapter
             }
@@ -66,5 +78,9 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private val TAG = HomeFragment::class.java.simpleName
     }
 }
