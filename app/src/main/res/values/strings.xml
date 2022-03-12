@@ -11,4 +11,6 @@
     <string name="write_title_here">Write title here ...</string>
     <string name="content">Content</string>
     <string name="write_content_here">Write content here ...</string>
+    <string name="edit_text_underline">edit text underline</string>
+    <string name="date_time">%s WIB</string>
 </resources>

@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import space.iqbalsyafiq.todolistapp.R
 import space.iqbalsyafiq.todolistapp.databinding.FragmentDetailBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailFragment : Fragment() {
 
@@ -27,6 +30,17 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        with(binding) {
+            tvDateTime.text = getString(
+                R.string.date_time, SimpleDateFormat(
+                    "dd MMM yyyy HH:mm",
+                    Locale.getDefault()
+                ).format(Date())
+            )
+
+            btnBack.setOnClickListener { activity?.onBackPressed() }
+        }
     }
 
     override fun onDestroy() {

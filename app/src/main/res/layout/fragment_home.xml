@@ -70,17 +70,6 @@
         tools:listitem="@layout/item_note" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnBack"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="36dp"
-        android:contentDescription="@string/back_icon"
-        android:src="@drawable/ic_back"
-        app:backgroundTint="@color/dark_accent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAdd"
         android:layout_width="55dp"
         android:layout_height="55dp"

@@ -8,43 +8,58 @@
     android:paddingTop="55dp"
     tools:context=".view.fragment.DetailFragment">
 
-    <EditText
-        android:id="@+id/etTitle"
-        style="@style/SemiBold24Sp"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_bg_edit_text"
-        android:hint="@string/write_title_here"
-        android:inputType="text"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:paddingBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="Autofill" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvContentTitle"
-        style="@style/Medium18Sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etTitle" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etContent"
-        style="@style/Regular14Sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/ic_bg_edit_text"
-        android:hint="@string/write_content_here"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvContentTitle"
-        tools:ignore="Autofill" />
+            <EditText
+                android:id="@+id/etTitle"
+                style="@style/SemiBold24Sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:hint="@string/write_title_here"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollHorizontally="false"
+                tools:ignore="Autofill" />
+
+            <TextView
+                android:id="@+id/tvDateTime"
+                style="@style/Regular12Sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="3dp"
+                android:textColor="@color/light_disabled"
+                tools:text="12 Mar 2022 22:14 WIB" />
+
+            <EditText
+                android:id="@+id/etContent"
+                style="@style/Regular14Sp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="@android:color/transparent"
+                android:gravity="top"
+                android:hint="@string/write_content_here"
+                android:inputType="textCapSentences|textMultiLine"
+                android:scrollHorizontally="false"
+                tools:ignore="Autofill" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnBack"
@@ -82,3 +97,4 @@
         app:layout_constraintEnd_toStartOf="@id/btnSaveEditAndConfirm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
