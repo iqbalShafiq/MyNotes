@@ -13,4 +13,5 @@
     <string name="write_content_here">Write content here ...</string>
     <string name="edit_text_underline">edit text underline</string>
     <string name="date_time">%s WIB</string>
+    <string name="add_your_first_note_please_d">Add your first note please :D</string>
 </resources>
