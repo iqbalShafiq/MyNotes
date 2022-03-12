@@ -13,4 +13,5 @@ data class Note(
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
+    var isDeleting: Boolean = false
 }

@@ -81,7 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="52dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_radius_bottom_8dp"
+            android:background="@drawable/bg_radius_bottom_right_8dp"
             android:src="@drawable/ic_check" />
 
     </LinearLayout>

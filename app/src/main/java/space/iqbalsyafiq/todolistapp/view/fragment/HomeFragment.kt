@@ -53,10 +53,22 @@ class HomeFragment : Fragment() {
             etSearch.addTextChangedListener {
                 viewModel.getNoteList(it.toString())
             }
+
+            // delete note
+            btnDelete.setOnClickListener {
+                adapter.noteList.forEachIndexed { index, note ->
+                    note.isDeleting = !note.isDeleting
+                    adapter.notifyItemChanged(index)
+                }
+            }
         }
 
         // observe live data
         observeLiveData()
+    }
+
+    fun deleteNote(noteId: Int) {
+        viewModel.deleteNote(noteId)
     }
 
     private fun observeLiveData() {
@@ -69,7 +81,7 @@ class HomeFragment : Fragment() {
         viewModel.noteList.observe(viewLifecycleOwner) { notes ->
             notes?.let {
                 Log.d(TAG, "observeLiveData: $notes")
-                adapter = NoteListAdapter(requireContext(), notes)
+                adapter = NoteListAdapter(this, notes)
                 binding.rvNoteList.adapter = adapter
             }
         }
