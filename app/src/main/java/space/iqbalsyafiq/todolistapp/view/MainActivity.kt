@@ -1,4 +1,4 @@
-package space.iqbalsyafiq.todolistapp
+package space.iqbalsyafiq.todolistapp.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
