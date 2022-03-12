@@ -32,6 +32,7 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
+            // set date and time
             tvDateTime.text = getString(
                 R.string.date_time, SimpleDateFormat(
                     "dd MMM yyyy HH:mm",
@@ -39,6 +40,7 @@ class DetailFragment : Fragment() {
                 ).format(Date())
             )
 
+            // set button back on click
             btnBack.setOnClickListener { activity?.onBackPressed() }
         }
     }
