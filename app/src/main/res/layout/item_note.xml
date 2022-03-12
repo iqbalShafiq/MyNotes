@@ -15,12 +15,14 @@
         android:id="@+id/tvTitle"
         style="@style/Medium18Sp"
         android:layout_width="0dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="About This Day" />
+        tools:text="@tools:sample/lorem/random" />
 
     <TextView
         android:id="@+id/tvContent"
