@@ -1,9 +1,12 @@
 package space.iqbalsyafiq.todolistapp.view.fragment
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -22,6 +25,7 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var note: Note? = null
+    private var id: Int? = null
     private var mode = MODE_SAVE
     private var isUpdating = false
 
@@ -43,6 +47,7 @@ class DetailFragment : Fragment() {
 
         // init note
         note = args.note
+        id = note?.id
         mode = if (note == null) MODE_SAVE else MODE_EDIT
 
         with(binding) {
@@ -55,6 +60,36 @@ class DetailFragment : Fragment() {
 
         // check note
         checkNote()
+
+        // observe live data
+        observeLiveData()
+    }
+
+    private fun observeLiveData() {
+        viewModel.id.observe(viewLifecycleOwner) { noteId ->
+            noteId?.let {
+                id = noteId.toInt()
+            }
+        }
+    }
+
+    private fun onDeletingEvent() {
+        with(binding) {
+            btnDeleteAndCancel.setImageResource(R.drawable.ic_close)
+            btnSaveEditAndConfirm.setImageResource(R.drawable.ic_check)
+
+            // on confirming delete
+            btnSaveEditAndConfirm.setOnClickListener {
+                viewModel.deleteNote(id!!)
+                activity?.onBackPressed()
+            }
+
+            // on canceling delete
+            btnDeleteAndCancel.setOnClickListener {
+                // back checking note with mode edit
+                checkNote()
+            }
+        }
     }
 
     private fun getDateTime(): String {
@@ -66,12 +101,21 @@ class DetailFragment : Fragment() {
         )
     }
 
+    @SuppressLint("NewApi")
     private fun checkNote() {
         with(binding) {
             if (mode == MODE_SAVE) {
-                // set enable edit text
+                // set edit text
                 etTitle.isEnabled = true
-                etContent.isEnabled = true
+                etContent.apply {
+                    isEnabled = true
+
+                    // set focus to this edit text and show keyboard
+                    requestFocus(textDirection)
+                    val imm =
+                        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+                }
 
                 // set save and delete button
                 btnSaveEditAndConfirm.setImageResource(R.drawable.ic_save)
@@ -88,7 +132,7 @@ class DetailFragment : Fragment() {
 
                     // check is updating or not then store to database
                     if (isUpdating) {
-                        note!!.id = args.note!!.id
+                        note!!.id = id!!
                         viewModel.updateNote(note!!)
                     } else viewModel.storeNote(note!!)
 
@@ -108,6 +152,7 @@ class DetailFragment : Fragment() {
 
                 // set edit and delete button
                 btnSaveEditAndConfirm.setImageResource(R.drawable.ic_edit)
+                btnDeleteAndCancel.setImageResource(R.drawable.ic_trash)
                 btnDeleteAndCancel.visibility = View.VISIBLE
 
                 // set edit click event
@@ -117,6 +162,9 @@ class DetailFragment : Fragment() {
                     isUpdating = true
                     checkNote()
                 }
+
+                // set delete click event
+                btnDeleteAndCancel.setOnClickListener { onDeletingEvent() }
             }
         }
     }

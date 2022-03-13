@@ -1,16 +1,15 @@
 <resources>
     <string name="app_name">To Do List App</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="my_to_do_list">My To Do List</string>
-    <string name="search_here">Search here ...</string>
+    <string name="my_notes">My Notes</string>
+    <string name="search_here">Search here …</string>
     <string name="search_icon">search icon</string>
-    <string name="to_do_list">To Do List</string>
+    <string name="note_list">Note List</string>
     <string name="back_icon">back icon</string>
     <string name="trash_icon">trash icon</string>
-    <string name="write_title_here">Write title here ...</string>
+    <string name="write_title_here">Write title here …</string>
     <string name="content">Content</string>
-    <string name="write_content_here">Write content here ...</string>
+    <string name="write_content_here">Write content here …</string>
     <string name="edit_text_underline">edit text underline</string>
     <string name="date_time">%s WIB</string>
     <string name="add_your_first_note_please_d">Add your first note please :D</string>

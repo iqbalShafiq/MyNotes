@@ -19,10 +19,14 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
     private var _note = MutableLiveData<Note>()
     val note: LiveData<Note> = _note
 
+    private var _id = MutableLiveData<Long>()
+    val id: LiveData<Long> = _id
+
     // store note to database
     fun storeNote(note: Note) {
         viewModelScope.launch {
             dao.insertNote(note).also {
+                _id.value = it
                 Log.d(TAG, "storeNote: $it")
             }
         }
@@ -36,6 +40,13 @@ class DetailViewModel(application: Application) : AndroidViewModel(application) 
             dao.updateNote(note.id, note.content!!, note.dateTime!!, note.title!!).also {
                 Log.d(TAG, "updateNote: $it")
             }
+        }
+    }
+
+    // delete current note
+    fun deleteNote(noteId: Int) {
+        viewModelScope.launch {
+            dao.deleteNote(noteId)
         }
     }
 

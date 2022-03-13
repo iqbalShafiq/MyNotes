@@ -80,7 +80,12 @@ class HomeFragment : Fragment() {
     private fun observeLiveData() {
         viewModel.empty.observe(viewLifecycleOwner) { isEmpty ->
             isEmpty?.let {
-                binding.tvEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+                // set text and button view
+                with(binding) {
+                    tvEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
+                    rvNoteList.visibility = if (isEmpty) View.GONE else View.VISIBLE
+                    btnDelete.visibility = if (isEmpty) View.GONE else View.VISIBLE
+                }
             }
         }
 

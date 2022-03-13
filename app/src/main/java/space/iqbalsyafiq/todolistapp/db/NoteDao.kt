@@ -13,8 +13,8 @@ interface NoteDao {
     suspend fun insertNote(note: Note): Long
 
     // Get notes
-    @Query("SELECT * FROM note WHERE title LIKE :noteTitle ORDER BY id DESC")
-    suspend fun getNotes(noteTitle: String = ""): List<Note>
+    @Query("SELECT * FROM note WHERE title LIKE :query OR content LIKE :query ORDER BY id DESC")
+    suspend fun getNotes(query: String = ""): List<Note>
 
     // Get note's detail
     @Query("SELECT * FROM note WHERE id == :noteId")
