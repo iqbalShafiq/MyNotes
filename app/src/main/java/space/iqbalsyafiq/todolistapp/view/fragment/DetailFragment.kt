@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -55,7 +56,30 @@ class DetailFragment : Fragment() {
             tvDateTime.text = getDateTime()
 
             // set button back on click
-            btnBack.setOnClickListener { activity?.onBackPressed() }
+            btnBack.setOnClickListener {
+                val title = etTitle.text.toString()
+                val content = etContent.text.toString()
+
+                if (
+                    mode == MODE_SAVE &&
+                    title != note?.title &&
+                    content != note?.content &&
+                    title.isNotEmpty() &&
+                    content.isNotEmpty()
+                ) {
+                    Toast.makeText(
+                        requireContext(),
+                        "You haven't save it. Click back button again for close this note",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    btnBack.setOnClickListener {
+                        activity?.onBackPressed()
+                    }
+                } else {
+                    activity?.onBackPressed()
+                }
+            }
         }
 
         // check note
@@ -127,18 +151,20 @@ class DetailFragment : Fragment() {
                     val content = etContent.text.toString()
                     val dateTime = getDateTime()
 
-                    // assign to note
-                    note = Note(title, dateTime, content)
+                    if (validateNoteForm(title, content)) {
+                        // assign to note
+                        note = Note(title, dateTime, content)
 
-                    // check is updating or not then store to database
-                    if (isUpdating) {
-                        note!!.id = id!!
-                        viewModel.updateNote(note!!)
-                    } else viewModel.storeNote(note!!)
+                        // check is updating or not then store to database
+                        if (isUpdating) {
+                            note!!.id = id!!
+                            viewModel.updateNote(note!!)
+                        } else viewModel.storeNote(note!!)
 
-                    // switch mode to edit
-                    mode = MODE_EDIT
-                    checkNote()
+                        // switch mode to edit
+                        mode = MODE_EDIT
+                        checkNote()
+                    }
                 }
             } else {
                 // set title, content, and date time view
@@ -167,6 +193,20 @@ class DetailFragment : Fragment() {
                 btnDeleteAndCancel.setOnClickListener { onDeletingEvent() }
             }
         }
+    }
+
+    private fun validateNoteForm(title: String, content: String): Boolean {
+        if (content.isEmpty()) {
+            Toast.makeText(requireContext(), "Content couldn't be empty", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (title.isEmpty()) {
+            Toast.makeText(requireContext(), "Title couldn't be empty", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
     }
 
     override fun onDestroy() {
