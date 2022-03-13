@@ -60,6 +60,7 @@ class DetailFragment : Fragment() {
                 val title = etTitle.text.toString()
                 val content = etContent.text.toString()
 
+                // validate when back
                 if (
                     mode == MODE_SAVE &&
                     title != note?.title &&
